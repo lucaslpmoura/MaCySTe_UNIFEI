@@ -20,7 +20,7 @@ endif
 CONTAINER_BUILD_ARGS += --build-arg FEDORA_IMAGE=registry.fedoraproject.org/fedora:38
 CONTAINER_BUILD_ARGS += --build-arg JAVASCRIPT_IMAGE=docker.io/library/node:20.3.0
 CONTAINER_BUILD_ARGS += --build-arg PYTHON_IMAGE=docker.io/library/python:3.11.4
-CONTAINER_BUILD_ARGS += --build-arg RUST_IMAGE=docker.io/library/rust:1.70
+CONTAINER_BUILD_ARGS += --build-arg RUST_IMAGE=docker.io/library/rust:1.82
 
 CONTAINER_IMAGE_LABELS += \
 	it.unige.project=MaCySTe \
@@ -229,6 +229,13 @@ up-net-%: up-dummy
 	$(if $($(NAME)_NET_NAME),,$(error network $(NAME) has no name))
 	$(if $($(NAME)_NET_CIDR),,$(error network $(NAME) has no cidr))
 	$(if $($(NAME)_NET_DRIVER),,$(error network $(NAME) has no driver))
+	$(PODMAN) network rm -f $($(NAME)_NET_NAME) || true \
+	$(PODMAN) network create \
+	--driver $($(NAME)_NET_DRIVER) \
+	$(if $(filter macvlan,$($(NAME)_NET_DRIVER)),--opt parent=dummy0) \
+	$(if $($(NAME)_NET_INTERNAL),--internal) \
+	--subnet $($(NAME)_NET_CIDR) \
+	$($(NAME)_NET_NAME)
 	$(PODMAN) network create \
 		--driver $($(NAME)_NET_DRIVER) \
 		$(if $(filter macvlan,$($(NAME)_NET_DRIVER)),--opt parent=dummy0) \
