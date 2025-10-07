@@ -1,2 +1,10 @@
 FROM docker.io/frangoteam/fuxa:1.1.10
-RUN npm install modbus-serial
+
+# Instalar dependências para compilar módulos nativos
+
+# Atualizar npm (opcional, mas ajuda a reduzir warnings)
+RUN npm install -g npm@7
+
+# Instalar o modbus-serial
+RUN npm install --no-package-lock modbus-serial
+

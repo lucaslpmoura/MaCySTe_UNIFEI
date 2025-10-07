@@ -1,11 +1,11 @@
 # Scenario to instantiate
-SCENARIO_NAME := core
+SCENARIO_NAME := attacker
 
 # Should BridgeCommand run in headless mode (1 to enable)
-BC_HEADLESS := 
+BC_HEADLESS := 1 
 
 # Scenario to load in BridgeCommand
-BC_SCENARIO := Genoa
+BC_SCENARIO := Genoa 
 
 # Container image registry
 REGISTRY := ghcr.io/crack-mcr
