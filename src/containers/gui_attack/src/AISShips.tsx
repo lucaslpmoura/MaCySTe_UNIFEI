@@ -13,6 +13,7 @@ export default function AISShips() {
     const setSelectedMMSI = useSetRecoilState(selectedAISShipMMSI)
     const [ MMSIs, setMMSIs ] = useRecoilState<number[]>(aisShipMMSIs)
     const { lastJsonMessage } = useWebSocket<JsonObject>(getNMEAWebSocketURL)
+
     useEffect(() => {
         if (!lastJsonMessage) return
         if (lastJsonMessage.sentence_type === 'VDM' && typeof lastJsonMessage.mmsi === 'number') {

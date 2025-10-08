@@ -145,6 +145,7 @@ function AttackInventory() {
     const rpcId = useId()
     const [ attackInventory, setAttackInventory ] = useState<any[] | null>(null)
     const { sendJsonMessage, lastJsonMessage } = useWebSocket<JsonObject>(getCCWebSocketURL)
+
     useEffect(() => {
         sendJsonMessage({ method: 'attack_inventory', id: rpcId })
     }, [ rpcId, sendJsonMessage ])

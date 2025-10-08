@@ -62,6 +62,8 @@ modules:
         - mv ../bin /app/bin
         - mv ../scenarioGenoa /app/bin/Scenarios/Genoa
         - mv ../worldGenoa /app/bin/World/Genoa
+        - mv ../scenarioVitoria /app/bin/Scenarios/Vitoria
+        - mv ../worldVitoria /app/bin/World/Vitoria
         - python3 ../set_radar_range.py /app
       sources:
           - type: git
